@@ -1,0 +1,189 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.HashSet;
+// crear clase perros
+public class Perros
+{
+    private String nombre, raza, localidad, nombreDueño, diaAsistencia;
+    int cedula, telefono;
+
+    //Método para asignar nombre al perro
+    public void asignarNombre (String nuevoNombre) {
+        nombre = nuevoNombre;
+    }
+    //Método para asignarle raza al perro
+    public void asignarRaza (String nuevaRaza) {
+        raza = nuevaRaza;
+    }
+    //Método para asignar localidad a la que pertenece el perro
+    public void asignarLocalidad (String nuevaLocalidad) {
+        localidad = nuevaLocalidad;
+    }
+    //Método para asignarle cedula al perro
+    public void asignarCedula (int nuevaCedula) {
+        cedula = nuevaCedula;
+    }
+    //Método para asignarle nombre al dueño del perro
+    public void asignarNombreDueño (String nuevoNombreDueño) {
+        nombreDueño = nuevoNombreDueño;
+    }
+    //Método para asignarle número de telefono al perro
+    public void asignarTelefono (int nuevoTelefono) {
+        telefono = nuevoTelefono;
+    }
+    //Método para asignarle dia de asistencia al perro
+    public void asignarDiaAsistencia (String nuevoDiaAsistencia) {
+        diaAsistencia = nuevoDiaAsistencia;
+    }
+
+    //Los siguientes metodos retornan cada atributo del objeto Perros
+    public String getNombre(){
+        return nombre;
+    }
+    
+    public String getRaza(){
+        return raza;
+    }
+    
+    public String getLocalidad(){
+        return localidad;
+    }
+
+    public int getCedula(){
+        return cedula;
+    }
+    
+    public String getNombreDueño(){
+        return nombreDueño;
+    }
+    
+    public int getTelefono(){
+        return telefono;
+    }
+    
+    public String getDiaAsistencia(){
+        return diaAsistencia;
+    }
+    
+    //Metodo para imprimir la información de los perros en pantalla
+    public void imprimir (ArrayList<Perros>  perro) {
+        System.out.println("-----------------------------------------------------------LISTADO-----------------------------------------------------");
+        for (int i = 0; i < perro.size(); i++) {  //rrecorre la lista perro
+            System.out.print(+(i+1)+". Nombre: " + perro.get(i).getNombre());
+            System.out.print(" |  Raza: " + perro.get(i).getRaza());
+            System.out.print(" | Localidad: " + perro.get(i).getLocalidad());
+            System.out.print(" | Cedula: " + perro.get(i).getCedula());
+            System.out.print(" | Nombre del Dueño: " + perro.get(i).getNombreDueño());
+            System.out.print(" | Telefono: " + perro.get(i).getTelefono());
+            System.out.println(" | Dia de asistencia a la semana: " + perro.get(i).getDiaAsistencia());
+            System.out.println("-------------------------------------------------------------------------------------------------------------------");
+        }
+    }
+    //Método para imprimir información de los perros por localidades
+    public void imprimirPorLocalidad (ArrayList<Perros>  perro) {
+        ArrayList localidades = new ArrayList();
+        HashSet hs = new HashSet();  //creamos un HashSet, el cual nos servira para llenar el array con valores no repetidos
+        for (int i = 0; i < perro.size(); i++) {   //recorremos la lista perro
+            localidades.add(perro.get(i).getLocalidad());  
+        }
+        hs.addAll(localidades);
+        localidades.clear();
+        localidades.addAll(hs);
+        System.out.println("---------------------------------------------------------------LISTADO---------------------------------------------------");
+        for (int i = 0; i < localidades.size(); i++) {
+            System.out.println("----------------------------------------------Localidad "+localidades.get(i)+"---------------------------------------");
+            for (int j = 0; j < perro.size(); j++) {  
+                if(perro.get(j).getLocalidad().equals (localidades.get(i))){  
+                    System.out.print(+(j+1)+". Nombre: " + perro.get(j).getNombre());
+                    System.out.print(" |  Raza: " + perro.get(j).getRaza());
+                    System.out.print(" | Localidad: " + perro.get(j).getLocalidad());
+                    System.out.print(" | Cedula: " + perro.get(j).getCedula());
+                    System.out.print(" | Nombre del Dueño: " + perro.get(j).getNombreDueño());
+                    System.out.print(" | Telefono: " + perro.get(j).getTelefono());
+                    System.out.println(" | Dia de asistencia a la semana: " + perro.get(j).getDiaAsistencia());
+                    System.out.println("--------------------------------------------------------------------------------------------------------------");
+                }
+            }
+        }
+    }
+    
+    public static void main (String [] args) {
+        Scanner teclado = new Scanner(System.in);
+        ArrayList <Perros> perro = new ArrayList <Perros> (); //Base de datos
+        int opc = 0;
+        String nom, raz, loca, nomDueño, diaAsist;
+        int ced, tel;
+
+        Perros p = null;
+
+        do {
+            System.out.println("Menu");
+            System.out.println("1. Crear un nuevo perro");
+            System.out.println("2. Mostrar la información de los perros");
+            System.out.println("3. Mostrar perros por localidad");
+            System.out.println("4. Salir");
+            System.out.println("Ingrese una opción");
+            opc = teclado.nextInt();
+
+            switch (opc) {
+                case 1:
+                System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                System.out.print("Nombre: ");
+                teclado.nextLine();
+                nom = teclado.nextLine();
+
+                System.out.print("Raza: ");                
+                raz = teclado.nextLine();
+
+                System.out.print("Localidad: ");                
+                loca = teclado.nextLine();
+
+                System.out.print("Cedula: ");                
+                ced = teclado.nextInt();
+
+                System.out.print("Nombre del dueño: "); 
+                teclado.nextLine();
+                nomDueño = teclado.nextLine();
+
+                System.out.print("Teléfono de contacto: ");                
+                tel = teclado.nextInt();
+
+                System.out.print("Día de asistencia a la semana: "); 
+                teclado.nextLine();
+                diaAsist = teclado.nextLine();
+                
+                //Crear el perro
+                p = new Perros();
+                //almacenar información del perro
+                p.asignarNombre(nom);
+                p.asignarRaza(raz);
+                p.asignarLocalidad(loca);
+                p.asignarCedula(ced);
+                p.asignarNombreDueño(nomDueño);
+                p.asignarTelefono(tel);
+                p.asignarDiaAsistencia(diaAsist);
+                
+                //Almacenar la información en la base de datos
+                perro.add(p);
+                
+                System.out.println("-----------------------------------------El perro fue creado exitosamente--------------------------------------");
+                break;
+                
+                case 2:
+                System.out.println("---------------------------------------------------------------------------------------------------------------");
+                if (perro == null || perro.size()==0){
+                   System.out.println("No existe información de los perros en la base de datos");
+                }
+                else {
+                    p.imprimir(perro);
+                }
+                break;
+                
+                case 3:
+                    p.imprimirPorLocalidad(perro); ///llamado al metodo imprimir Por Localidad
+                break;
+            }             
+        }while (opc!=4);
+        System.out.println (" Hemos terminado. ¡Adios!"); 
+    }    
+}
